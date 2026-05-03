@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom';
-import { ShieldCheck } from 'lucide-react';
+import { LogoMark } from '@/components/Logo';
 
 const Footer = () => (
   <footer className="border-t border-border bg-background/40 mt-8 pb-24 md:pb-6 pt-8">
     <div className="max-w-6xl mx-auto px-4 md:px-6 grid grid-cols-2 md:grid-cols-4 gap-6 text-xs">
       <div className="col-span-2 md:col-span-1 space-y-2">
-        <div className="flex items-center gap-1.5">
-          <ShieldCheck className="w-4 h-4 text-primary" />
-          <span className="font-bold text-foreground">SAFEMARQ</span>
+        <div className="flex items-center gap-2">
+          <LogoMark size={22} />
+          <span className="font-extrabold text-foreground tracking-[0.16em] text-sm">SAFEMARQ</span>
         </div>
         <p className="text-muted-foreground leading-relaxed">
           La plateforme de confiance pour comparer les garages automobiles en Belgique.

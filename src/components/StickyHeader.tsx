@@ -1,9 +1,10 @@
-import { Search, BadgeCheck, Home, Trophy, Bookmark, LogOut, User, Briefcase } from 'lucide-react';
+import { Search, Home, Trophy, Bookmark, LogOut, User, Briefcase } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { useGarageOwnership } from '@/hooks/useDashboard';
 import ThemeToggle from '@/components/ThemeToggle';
+import Logo from '@/components/Logo';
 
 const navLinks = [
   { id: 'home', label: 'Home', icon: Home },
@@ -31,12 +32,8 @@ const StickyHeader = ({ searchQuery, onSearchChange }: StickyHeaderProps) => {
       <div className="max-w-6xl mx-auto px-4 md:px-6">
         {/* Top row */}
         <div className="h-14 md:h-16 flex items-center justify-between gap-4">
-          <div className="flex items-center gap-1.5">
-            <span className="text-foreground font-bold text-[15px] md:text-lg tracking-tight">
-              SAFEMARQ
-            </span>
-            <BadgeCheck className="w-4 h-4 md:w-5 md:h-5 text-primary" />
-          </div>
+          <Logo size={28} wordmarkClassName="text-[13px] md:text-sm" />
+
 
           {/* Desktop search — inline in header */}
           <div className="hidden md:flex flex-1 max-w-md items-center gap-2.5 px-4 py-2.5 rounded-full bg-card border border-border focus-within:border-primary/50 transition-colors">
