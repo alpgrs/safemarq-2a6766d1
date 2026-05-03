@@ -2,7 +2,7 @@ import { Star, TrendingDown, BadgeCheck, Calendar, ShieldCheck } from 'lucide-re
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { useGarages, calculateTrustmarqScore, Garage } from '@/hooks/useGarages';
+import { useGarages, calculateSAFEMARQScore, Garage } from '@/hooks/useGarages';
 import { Skeleton } from '@/components/ui/skeleton';
 
 type ViewMode = 'side' | 'dealer' | 'specialist';
@@ -30,8 +30,8 @@ const ComparisonEngine = () => {
 
   if (!dealer || !independent) return null;
 
-  const dealerScore = calculateTrustmarqScore(dealer.rating, dealer.reviews);
-  const indepScore = calculateTrustmarqScore(independent.rating, independent.reviews);
+  const dealerScore = calculateSAFEMARQScore(dealer.rating, dealer.reviews);
+  const indepScore = calculateSAFEMARQScore(independent.rating, independent.reviews);
 
   const renderStars = (rating: number) => (
     <div className="flex items-center gap-0.5">
@@ -82,7 +82,7 @@ const ComparisonEngine = () => {
           <span className="text-foreground font-semibold">{garage.rating} / 5</span>
         </div>
         <div className="flex justify-between text-[11px]">
-          <span className="text-muted-foreground">Score Trustmarq</span>
+          <span className="text-muted-foreground">Score SAFEMARQ</span>
           <span className={`font-bold inline-flex items-center gap-1 ${isHighlighted ? 'text-primary' : 'text-foreground'}`}>
             <ShieldCheck className="w-3 h-3" />
             {score} / 100

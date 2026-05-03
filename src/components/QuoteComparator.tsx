@@ -82,7 +82,7 @@ const QuoteComparator = () => {
             <h2 className="text-2xl md:text-3xl font-bold text-foreground">Comparateur de Devis IA</h2>
           </div>
           <p className="text-muted-foreground">
-            Vérifiez si votre devis est juste par rapport aux prix du marché. Trustmarq analyse les tarifs de milliers de garages.
+            Vérifiez si votre devis est juste par rapport aux prix du marché. SAFEMARQ analyse les tarifs de milliers de garages.
           </p>
         </div>
 

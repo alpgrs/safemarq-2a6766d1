@@ -47,7 +47,7 @@ const Auth = () => {
         <div className="text-center space-y-2">
           <div className="inline-flex items-center gap-2 text-primary">
             <ShieldCheck className="w-6 h-6" />
-            <span className="font-mono-data text-lg font-bold tracking-tight">TRUSTMARQ</span>
+            <span className="font-mono-data text-lg font-bold tracking-tight">SAFEMARQ</span>
           </div>
           <p className="text-sm text-muted-foreground">
             {isLogin ? 'Connectez-vous à votre compte' : 'Créez votre compte'}

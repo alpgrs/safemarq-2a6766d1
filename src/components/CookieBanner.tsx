@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Cookie } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-const STORAGE_KEY = 'trustmarq_cookie_consent';
+const STORAGE_KEY = 'safemarq_cookie_consent';
 
 const CookieBanner = () => {
   const [visible, setVisible] = useState(false);

@@ -1,5 +1,5 @@
 /**
- * Moteur d'analyse de devis IA pour Trustmarq
+ * Moteur d'analyse de devis IA pour SAFEMARQ
  * Analyse les prix des devis par rapport aux moyennes du marché
  */
 

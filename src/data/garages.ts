@@ -28,10 +28,10 @@ export interface Garage {
 }
 
 /**
- * Calculates the Trustmarq Score (0–100).
+ * Calculates the SAFEMARQ Score (0–100).
  * 60% weighted on Google rating (normalized to 100), 40% on review volume (log-scaled, capped at 500).
  */
-export function calculateTrustmarqScore(rating: number, reviewCount: number): number {
+export function calculateSAFEMARQScore(rating: number, reviewCount: number): number {
   const ratingScore = (rating / 5) * 100;
   const volumeScore = Math.min((Math.log10(reviewCount + 1) / Math.log10(501)) * 100, 100);
   return Math.round(ratingScore * 0.6 + volumeScore * 0.4);

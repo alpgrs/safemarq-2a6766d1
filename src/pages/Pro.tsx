@@ -11,14 +11,14 @@ const FEATURES = [
   { icon: MessageSquare, title: 'Répondez aux avis', text: 'Apportez du contexte, montrez votre professionnalisme et améliorez votre image publique.' },
   { icon: FileText, title: 'Recevez des devis qualifiés', text: 'Les automobilistes vous contactent directement avec le détail de leur besoin, leur véhicule et leur plaque.' },
   { icon: BarChart3, title: 'Tableau de bord pro', text: 'Suivez vos avis, gérez vos demandes par statut, mesurez votre performance.' },
-  { icon: ShieldCheck, title: 'Pas de classement payant', text: 'Aucune mise en avant cachée. Le score Trustmarq est le seul critère de visibilité.' },
+  { icon: ShieldCheck, title: 'Pas de classement payant', text: 'Aucune mise en avant cachée. Le score SAFEMARQ est le seul critère de visibilité.' },
 ];
 
 const Pro = () => (
   <div className="min-h-screen bg-background">
     <Seo
       title="Espace garagistes — Revendiquez votre fiche"
-      description="Garagistes : revendiquez gratuitement votre fiche Trustmarq, répondez aux avis et recevez des demandes de devis qualifiées."
+      description="Garagistes : revendiquez gratuitement votre fiche SAFEMARQ, répondez aux avis et recevez des demandes de devis qualifiées."
     />
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border">
       <div className="max-w-4xl mx-auto px-4 h-14 flex items-center gap-3">
@@ -42,7 +42,7 @@ const Pro = () => (
           Reprenez la main sur votre réputation.
         </h1>
         <p className="text-sm md:text-base text-muted-foreground max-w-2xl mx-auto">
-          Trustmarq aide les automobilistes à choisir un garage en confiance. En tant que professionnel, gérez vos avis et captez de nouveaux clients — gratuitement.
+          SAFEMARQ aide les automobilistes à choisir un garage en confiance. En tant que professionnel, gérez vos avis et captez de nouveaux clients — gratuitement.
         </p>
         <div className="flex flex-wrap justify-center gap-2 pt-2">
           <Link to="/pro/claim">

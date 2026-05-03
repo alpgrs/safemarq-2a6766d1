@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { useGarages, calculateTrustmarqScore } from '@/hooks/useGarages';
+import { useGarages, calculateSAFEMARQScore } from '@/hooks/useGarages';
 import QuoteModal from '@/components/QuoteModal';
 import FavoriteButton from '@/components/FavoriteButton';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -55,7 +55,7 @@ const ReviewCards = ({ searchQuery = '', activeFilter = 'all', userPosition, rad
 
   const garagesWithScore = (garages || []).map(g => ({
     ...g,
-    score: calculateTrustmarqScore(g.rating, g.reviews),
+    score: calculateSAFEMARQScore(g.rating, g.reviews),
   }));
 
   const filtered = garagesWithScore.filter(g => {
