@@ -7,7 +7,7 @@ const Footer = () => (
       <div className="col-span-2 md:col-span-1 space-y-2">
         <div className="flex items-center gap-1.5">
           <ShieldCheck className="w-4 h-4 text-primary" />
-          <span className="font-bold text-foreground">Trustmarq</span>
+          <span className="font-bold text-foreground">SAFEMARQ</span>
         </div>
         <p className="text-muted-foreground leading-relaxed">
           La plateforme de confiance pour comparer les garages automobiles en Belgique.
@@ -43,7 +43,7 @@ const Footer = () => (
       </div>
     </div>
     <div className="max-w-6xl mx-auto px-4 md:px-6 mt-6 pt-4 border-t border-border/50 text-[11px] text-muted-foreground flex flex-wrap justify-between gap-2">
-      <span>© {new Date().getFullYear()} Trustmarq. Tous droits réservés.</span>
+      <span>© {new Date().getFullYear()} SAFEMARQ. Tous droits réservés.</span>
       <span>Fait en Belgique 🇧🇪</span>
     </div>
   </footer>

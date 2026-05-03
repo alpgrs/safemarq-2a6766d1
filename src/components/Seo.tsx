@@ -10,8 +10,8 @@ interface Props {
   noindex?: boolean;
 }
 
-const SITE_NAME = 'Trustmarq';
-const DEFAULT_DESC = 'Comparez les garages automobiles de Belgique. Avis vérifiés, devis instantanés, score de confiance Trustmarq.';
+const SITE_NAME = 'SAFEMARQ';
+const DEFAULT_DESC = 'Comparez les garages automobiles de Belgique. Avis vérifiés, devis instantanés, score de confiance SAFEMARQ.';
 const DEFAULT_IMAGE = '/og-image.jpg';
 
 const Seo = ({ title, description = DEFAULT_DESC, canonical, image = DEFAULT_IMAGE, type = 'website', jsonLd, noindex }: Props) => {

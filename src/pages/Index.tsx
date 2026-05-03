@@ -27,12 +27,12 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background relative overflow-x-hidden">
       <Seo
-        title="Trustmarq — Comparez les garages automobiles en Belgique"
-        description="Trouvez et comparez les meilleurs garages automobiles près de chez vous. Avis vérifiés, devis instantanés, score de confiance Trustmarq."
+        title="SAFEMARQ — Comparez les garages automobiles en Belgique"
+        description="Trouvez et comparez les meilleurs garages automobiles près de chez vous. Avis vérifiés, devis instantanés, score de confiance SAFEMARQ."
         jsonLd={{
           '@context': 'https://schema.org',
           '@type': 'WebSite',
-          name: 'Trustmarq',
+          name: 'SAFEMARQ',
           url: typeof window !== 'undefined' ? window.location.origin : '',
           potentialAction: {
             '@type': 'SearchAction',

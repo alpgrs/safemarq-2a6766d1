@@ -1,11 +1,11 @@
 import LegalLayout from './LegalLayout';
 
 const Cookies = () => (
-  <LegalLayout title="Politique Cookies" description="Utilisation des cookies sur Trustmarq.">
+  <LegalLayout title="Politique Cookies" description="Utilisation des cookies sur SAFEMARQ.">
     <h2>Qu'est-ce qu'un cookie ?</h2>
     <p>Un cookie est un petit fichier texte stocké sur votre appareil lors de votre visite, permettant à un site de mémoriser certaines informations.</p>
 
-    <h2>Cookies utilisés par Trustmarq</h2>
+    <h2>Cookies utilisés par SAFEMARQ</h2>
     <h2 className="text-sm">Cookies essentiels (sans consentement)</h2>
     <ul>
       <li><strong>Session d'authentification</strong> : pour maintenir votre connexion.</li>

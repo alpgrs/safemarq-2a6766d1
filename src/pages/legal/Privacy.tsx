@@ -1,11 +1,11 @@
 import LegalLayout from './LegalLayout';
 
 const Privacy = () => (
-  <LegalLayout title="Politique de Confidentialité" description="Politique de protection des données personnelles de Trustmarq, conforme au RGPD.">
-    <p>Trustmarq accorde une importance fondamentale à la protection de vos données personnelles, conformément au Règlement Général sur la Protection des Données (RGPD - UE 2016/679).</p>
+  <LegalLayout title="Politique de Confidentialité" description="Politique de protection des données personnelles de SAFEMARQ, conforme au RGPD.">
+    <p>SAFEMARQ accorde une importance fondamentale à la protection de vos données personnelles, conformément au Règlement Général sur la Protection des Données (RGPD - UE 2016/679).</p>
 
     <h2>1. Responsable du traitement</h2>
-    <p>Trustmarq, basé à Namur, Belgique. Contact : privacy@trustmarq.be</p>
+    <p>SAFEMARQ, basé à Namur, Belgique. Contact : privacy@safemarq.be</p>
 
     <h2>2. Données collectées</h2>
     <ul>
@@ -30,11 +30,11 @@ const Privacy = () => (
     <p>Les données de compte sont conservées tant que le compte est actif. Les avis publiés restent visibles tant que le garage est référencé. Les données techniques sont conservées 13 mois maximum.</p>
 
     <h2>6. Vos droits</h2>
-    <p>Vous disposez d'un droit d'accès, de rectification, d'effacement, de limitation, de portabilité et d'opposition. Pour exercer ces droits : <a href="mailto:privacy@trustmarq.be">privacy@trustmarq.be</a>.</p>
+    <p>Vous disposez d'un droit d'accès, de rectification, d'effacement, de limitation, de portabilité et d'opposition. Pour exercer ces droits : <a href="mailto:privacy@safemarq.be">privacy@safemarq.be</a>.</p>
     <p>Vous pouvez introduire une réclamation auprès de l'<a href="https://www.autoriteprotectiondonnees.be" target="_blank" rel="noreferrer">Autorité de Protection des Données belge</a>.</p>
 
     <h2>7. Sous-traitants</h2>
-    <p>Trustmarq utilise des prestataires européens pour l'hébergement (Lovable Cloud / Supabase, UE) et la cartographie (OpenStreetMap). Aucune donnée n'est transférée hors UE sans garanties appropriées.</p>
+    <p>SAFEMARQ utilise des prestataires européens pour l'hébergement (Lovable Cloud / Supabase, UE) et la cartographie (OpenStreetMap). Aucune donnée n'est transférée hors UE sans garanties appropriées.</p>
 
     <h2>8. Sécurité</h2>
     <p>Mots de passe chiffrés, communications HTTPS, contrôle d'accès via Row-Level Security au niveau base de données.</p>

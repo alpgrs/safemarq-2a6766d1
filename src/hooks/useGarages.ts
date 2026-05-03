@@ -71,7 +71,7 @@ function mapDbToGarage(db: DbGarage): Garage {
   };
 }
 
-export function calculateTrustmarqScore(rating: number, reviewCount: number): number {
+export function calculateSAFEMARQScore(rating: number, reviewCount: number): number {
   const ratingScore = (rating / 5) * 100;
   const volumeScore = Math.min((Math.log10(reviewCount + 1) / Math.log10(501)) * 100, 100);
   return Math.round(ratingScore * 0.6 + volumeScore * 0.4);

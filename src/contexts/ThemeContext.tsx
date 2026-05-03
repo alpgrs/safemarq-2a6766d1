@@ -13,7 +13,7 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [theme, setThemeState] = useState<Theme>(() => {
     // Récupérer le thème sauvegardé ou utiliser la préférence système
-    const saved = localStorage.getItem('trustmarq-theme') as Theme | null;
+    const saved = localStorage.getItem('safemarq-theme') as Theme | null;
     if (saved) return saved;
     
     if (typeof window !== 'undefined') {
@@ -30,7 +30,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     } else {
       root.classList.remove('dark');
     }
-    localStorage.setItem('trustmarq-theme', theme);
+    localStorage.setItem('safemarq-theme', theme);
   }, [theme]);
 
   const toggleTheme = () => {

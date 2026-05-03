@@ -82,7 +82,7 @@ const PriceFairnessIndicator = ({ garageRating, garageName, compact = false }: P
         <div className="flex items-center gap-2">
           {getIcon(recommendation)}
           <span className={`font-semibold text-sm ${colors.text}`}>
-            Trustmarq Fair Price
+            SAFEMARQ Fair Price
           </span>
         </div>
         <div className={`text-lg font-bold ${colors.text}`}>

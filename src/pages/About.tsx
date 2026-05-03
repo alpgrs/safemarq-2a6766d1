@@ -14,8 +14,8 @@ const PILLARS = [
   },
   {
     icon: Scale,
-    title: 'Score Trustmarq objectif',
-    text: 'Le Trustmarq Score combine 60% de la note Google et 40% du volume d\'avis (échelle logarithmique). Un score lisible de 0 à 100.',
+    title: 'Score SAFEMARQ objectif',
+    text: 'Le SAFEMARQ Score combine 60% de la note Google et 40% du volume d\'avis (échelle logarithmique). Un score lisible de 0 à 100.',
   },
   {
     icon: MessageSquare,
@@ -33,7 +33,7 @@ const About = () => (
   <div className="min-h-screen bg-background">
     <Seo
       title="Notre méthode — Comment nous évaluons les garages"
-      description="Découvrez la méthode Trustmarq : avis vérifiés par facture, score objectif, et transparence sur les garages automobiles en Belgique."
+      description="Découvrez la méthode SAFEMARQ : avis vérifiés par facture, score objectif, et transparence sur les garages automobiles en Belgique."
     />
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border">
       <div className="max-w-4xl mx-auto px-4 h-14 flex items-center gap-3">
@@ -57,7 +57,7 @@ const About = () => (
           La confiance, ça se mesure.
         </h1>
         <p className="text-sm md:text-base text-muted-foreground max-w-2xl mx-auto">
-          Trustmarq aide les automobilistes belges à choisir le bon garage en s'appuyant sur des données vérifiables et un score objectif.
+          SAFEMARQ aide les automobilistes belges à choisir le bon garage en s'appuyant sur des données vérifiables et un score objectif.
         </p>
       </motion.section>
 
@@ -80,7 +80,7 @@ const About = () => (
       </section>
 
       <section className="surface-card p-5 mb-10">
-        <h2 className="text-base font-bold text-foreground mb-2">Comment se calcule le Trustmarq Score ?</h2>
+        <h2 className="text-base font-bold text-foreground mb-2">Comment se calcule le SAFEMARQ Score ?</h2>
         <p className="text-xs text-muted-foreground leading-relaxed mb-3">
           Notre formule équilibre la qualité perçue et la fiabilité statistique :
         </p>

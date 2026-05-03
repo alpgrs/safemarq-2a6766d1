@@ -10,7 +10,7 @@ import GarageMap from '@/components/garage/GarageMap';
 import GarageReviews from '@/components/garage/GarageReviews';
 import QuoteModal from '@/components/QuoteModal';
 import Seo from '@/components/Seo';
-import { useGarage, calculateTrustmarqScore } from '@/hooks/useGarages';
+import { useGarage, calculateSAFEMARQScore } from '@/hooks/useGarages';
 import { useGarageHasOwner } from '@/hooks/useGarageClaims';
 import FavoriteButton from '@/components/FavoriteButton';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -44,7 +44,7 @@ const GarageDetail = () => {
     );
   }
 
-  const score = calculateTrustmarqScore(garage.rating, garage.reviews);
+  const score = calculateSAFEMARQScore(garage.rating, garage.reviews);
 
   const jsonLd = {
     '@context': 'https://schema.org',

@@ -33,7 +33,7 @@ const StickyHeader = ({ searchQuery, onSearchChange }: StickyHeaderProps) => {
         <div className="h-14 md:h-16 flex items-center justify-between gap-4">
           <div className="flex items-center gap-1.5">
             <span className="text-foreground font-bold text-[15px] md:text-lg tracking-tight">
-              TRUSTMARQ
+              SAFEMARQ
             </span>
             <BadgeCheck className="w-4 h-4 md:w-5 md:h-5 text-primary" />
           </div>
