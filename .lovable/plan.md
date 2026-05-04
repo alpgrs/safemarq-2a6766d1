@@ -1,67 +1,98 @@
-# Plan de finalisation Trustmarq — Route vers le lancement
 
-On va avancer par phases courtes et livrables. Je propose qu'on commence **maintenant** par la Phase 1 (la base indispensable pour publier sereinement), puis on enchaîne.
+# Landing page premium SAFEMARQ — "Sérieux, on lance"
 
-## Phase 1 — Socle de lancement (on commence ici)
+Objectif : transformer la home actuelle (qui est un outil de recherche) en **landing de lancement** capable de convertir 3 audiences à la fois (automobilistes, garagistes, presse/curieux), tout en gardant l'outil de recherche accessible immédiatement.
 
-Ce sont les briques sans lesquelles on ne peut pas publier proprement.
+## Principe directeur
 
-1. **Robustesse**
-   - `ErrorBoundary` global + page d'erreur stylée
-   - États vides soignés (recherche, avis, devis, véhicules, favoris)
-   - Skeletons cohérents partout
+On garde la barre de recherche en haut (c'est le cœur produit), mais on **enrobe** la page d'une vraie narration de marque : hero éditorial, preuve sociale, méthode, sections audience, CTA finaux. Aujourd'hui la home jette l'utilisateur direct dans la grille — ça marche pour un user qui sait, pas pour un visiteur qui découvre.
 
-2. **SEO & partage**
-   - Composant `<Seo />` réutilisable (titres, meta, Open Graph) sur toutes les pages
-   - JSON-LD `LocalBusiness` sur les fiches garages
-   - `sitemap.xml` généré
-   - Manifest PWA + favicon propres
+## Structure de la nouvelle home
 
-3. **Pages légales (RGPD Belgique)**
-   - Mentions légales, CGU, Politique de confidentialité, Cookies
-   - Bandeau cookies minimal (analytics opt-in)
-   - Page "À propos / Notre méthode" (explique le Trustmarq Score, la vérification des avis → renforce la confiance)
+```text
+┌─────────────────────────────────────────┐
+│ 1. HERO éditorial + recherche live      │  ← refonte SearchHero
+│ 2. Bandeau "trust strip" (chiffres)     │  ← nouveau
+│ 3. Section "Comment ça marche" (3 étapes)│ ← nouveau
+│ 4. Carte + résultats (l'outil actuel)   │  ← conservé, retitré
+│ 5. "Le score SAFEMARQ" (méthode)        │  ← nouveau, lien /about
+│ 6. Témoignages / avis vedettes          │  ← nouveau
+│ 7. Split CTA : Automobilistes | Pros    │  ← nouveau
+│ 8. FAQ courte (4-5 questions)           │  ← nouveau
+│ 9. Footer (existant)                    │
+└─────────────────────────────────────────┘
+```
 
-4. **Page publique "Pour les pros"** (`/pro`)
-   - Pitch de valeur + CTA vers `/pro/claim`
-   - Liens depuis le footer
+## Détail des nouvelles sections
 
-## Phase 2 — Engagement & confiance
+### 1. Hero refondu (`HeroLaunch.tsx`)
+- Headline plus fort, en français, pleine largeur : « Le garage de confiance, **vérifié par les vrais conducteurs.** »
+- Sous-titre court qui positionne : comparateur indépendant Belgique.
+- Barre de recherche XL centrée (réutilise la logique de `SearchHero` actuelle, suggestions incluses).
+- Bouton secondaire « Me géolocaliser » à côté.
+- Fond : dégradé subtil bleu nuit + halo `trust-glow` derrière le logo, particules statiques douces (pas d'animation lourde).
+- Mention micro sous la barre : « Gratuit • Sans inscription • 🇧🇪 ».
 
-5. **Emails transactionnels** (Lovable Emails) :
-   nouveau devis reçu, devis accepté/refusé, réponse à un avis, confirmation de revendication
-6. **Centre de notifications in-app** (cloche dans le header, realtime)
-7. **Édition de fiche par le garagiste** (description, horaires, photos via Storage)
+### 2. Trust strip (`TrustStrip.tsx`)
+Bande horizontale entre hero et carte, 4 chiffres animés (count-up via framer-motion) :
+- Nombre de garages référencés (depuis `useGarages`)
+- Nombre d'avis vérifiés (agrégé via Supabase count)
+- Note moyenne plateforme
+- « 100% indépendant »
 
-## Phase 3 — Modération & croissance
+### 3. Comment ça marche (`HowItWorks.tsx`)
+3 cartes alignées, icônes Lucide cohérentes :
+1. **Cherchez** — ville ou marque
+2. **Comparez** — score SAFEMARQ, avis, devis
+3. **Choisissez** — réservez ou demandez un devis
 
-8. **Dashboard admin** (`/admin`, rôle `admin`) : revendications en attente, modération avis, CRUD garages
-9. **Signalement d'avis** côté public
-10. **Stats garagiste** (vues fiche, conversion devis) + export CSV
-11. **Analytics privacy-friendly** (Plausible)
-12. **Élargissement géographique** (Liège, Charleroi, Bruxelles)
+### 4. Outil de recherche existant
+On conserve `HomeMap` + `ComparisonEngine` + `ReviewCards` + `QuoteComparator`, mais on ajoute un **titre de section** (« Explorez les garages près de chez vous ») et on ajuste les espacements.
 
-## Détails techniques Phase 1
+### 5. Section méthode (`MethodSection.tsx`)
+- Visuel à gauche (formule du score SAFEMARQ illustrée : 60% note + 40% volume).
+- Texte à droite : pourquoi c'est plus juste qu'une simple moyenne Google.
+- CTA : « Lire notre méthode complète » → `/about`.
 
-- `react-helmet-async` pour les meta (à ajouter)
-- `ErrorBoundary` placé dans `App.tsx` autour des routes
-- Composant `<EmptyState icon title description action />` réutilisable dans `src/components/ui/`
-- Pages légales en routes statiques `/legal/*` avec contenu Markdown rendu
-- Bandeau cookies via `localStorage` (consent stocké), affichage tant que non répondu
-- Sitemap : route `/sitemap.xml` générée côté client à partir des garages (ou statique pour V1)
-- Manifest PWA : `public/manifest.webmanifest` + meta tags dans `index.html`
-- JSON-LD : injecté via `<Seo />` sur `GarageDetail` avec rating, address, phone, openingHours
+### 6. Témoignages (`Testimonials.tsx`)
+- 3 cartes de témoignages (placeholders crédibles au lancement, à remplacer par de vrais avis).
+- Format : photo/initiales, citation, nom + ville + véhicule.
+- Slide horizontal sur mobile.
 
-## Estimation
+### 7. Split CTA (`SplitCTA.tsx`)
+Deux gros blocs côte à côte (mobile : empilés) :
+- **Gauche — Automobilistes** : « Trouvez votre garage » → scroll vers la carte.
+- **Droite — Garagistes** : « Revendiquez votre fiche » → `/pro`.
+Chacun avec un visuel/icon distinct et un bénéfice court.
 
-Phase 1 = un seul gros run de ma part. Phases 2 et 3 = plusieurs itérations chacune (notamment les emails et l'admin).
+### 8. FAQ (`FaqSection.tsx`)
+Accordion shadcn, 5 questions :
+- Comment SAFEMARQ choisit-il les garages ?
+- Comment vérifiez-vous les avis ?
+- Est-ce gratuit ?
+- Comment fonctionne le score SAFEMARQ ?
+- Je suis garagiste, comment apparaître ?
 
-## Question
+## Détails techniques
 
-Pour la Phase 1, tu veux :
+- **Nouveaux fichiers** dans `src/components/landing/` :
+  `HeroLaunch.tsx`, `TrustStrip.tsx`, `HowItWorks.tsx`, `MethodSection.tsx`, `Testimonials.tsx`, `SplitCTA.tsx`, `FaqSection.tsx`.
+- **`src/pages/Index.tsx`** réorganisé pour orchestrer ces sections dans l'ordre ci-dessus. La logique de filtres/recherche reste, juste déplacée sous le hero.
+- **`SearchHero.tsx`** est remplacé par `HeroLaunch.tsx` (on garde la logique suggestions, on jette les "trust indicators" dupliqués).
+- **Animations** : `framer-motion` (déjà utilisé) — fade-up à l'apparition (`whileInView`), count-up custom pour les stats. Aucune nouvelle dépendance.
+- **Stats dynamiques** : nouveau hook `useLandingStats()` qui fait `count` sur `garages` et `reviews` via Supabase (`select('*', { count: 'exact', head: true })`). React Query, cache 5 min.
+- **Composant FAQ** : utilise `@/components/ui/accordion` déjà présent.
+- **Responsive** : mobile-first, 1 colonne sous `md`, 2-3 colonnes au-dessus. Hero passe de 60vh (mobile) à 80vh (desktop).
+- **SEO** : enrichir le `jsonLd` dans `Index.tsx` avec un objet `Organization` (nom, logo, sameAs vides pour l'instant) en plus du `WebSite` existant.
+- **Pas de changement backend** : aucune migration, aucun edge function.
 
-- **A. On y va tel quel** — je livre les 4 sujets de la Phase 1 dans la foulée.
-- **B. On retire la page "À propos / Notre méthode"** (à faire plus tard, tu rédigeras peut-être le texte toi-même).
-- **C. Tu veux d'abord modifier l'ordre** — dis-moi ce que tu veux prioriser ou retirer.
+## Hors scope (pour plus tard)
 
-Réponds A / B / C et j'attaque dès l'approbation du plan.
+- Vraies vidéos/photos hero (placeholders propres pour l'instant).
+- Logos presse / "ils parlent de nous".
+- A/B testing.
+- Animations Lottie.
+
+## Livrable
+
+Une seule itération qui livre les 7 nouveaux composants + l'`Index.tsx` réorganisé. Build vérifié, responsive testé mentalement aux breakpoints mobile/tablet/desktop.
