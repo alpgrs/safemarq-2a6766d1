@@ -22,6 +22,7 @@ import Terms from "./pages/legal/Terms.tsx";
 import Privacy from "./pages/legal/Privacy.tsx";
 import CookiesPage from "./pages/legal/Cookies.tsx";
 import Mentions from "./pages/legal/Mentions.tsx";
+import Admin from "./pages/Admin.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient({
@@ -55,6 +56,7 @@ const App = () => (
                   <Route path="/legal/privacy" element={<Privacy />} />
                   <Route path="/legal/cookies" element={<CookiesPage />} />
                   <Route path="/legal/mentions" element={<Mentions />} />
+                  <Route path="/admin" element={<Admin />} />
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                   <Route path="*" element={<NotFound />} />
                 </Routes>

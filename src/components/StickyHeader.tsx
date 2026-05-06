@@ -1,8 +1,9 @@
-import { Search, Home, Trophy, Bookmark, LogOut, User, Briefcase } from 'lucide-react';
+import { Search, Home, Trophy, Bookmark, LogOut, User, Briefcase, Shield } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { useGarageOwnership } from '@/hooks/useDashboard';
+import { useIsAdmin } from '@/hooks/useAdmin';
 import ThemeToggle from '@/components/ThemeToggle';
 import Logo from '@/components/Logo';
 
@@ -22,6 +23,7 @@ const StickyHeader = ({ searchQuery, onSearchChange }: StickyHeaderProps) => {
   const [activeNav, setActiveNav] = useState('home');
   const { user, signOut } = useAuth();
   const { data: ownerships = [] } = useGarageOwnership();
+  const { data: isAdmin } = useIsAdmin();
   const isOwner = ownerships.length > 0;
 
   const query = searchQuery ?? localQuery;
@@ -72,6 +74,11 @@ const StickyHeader = ({ searchQuery, onSearchChange }: StickyHeaderProps) => {
             <ThemeToggle />
             {user ? (
               <div className="flex items-center gap-2">
+                {isAdmin && (
+                  <Link to="/admin" className="hidden md:flex items-center gap-1.5 text-xs text-red-500 font-semibold hover:text-red-400 transition-colors">
+                    <Shield className="w-3.5 h-3.5" /> Admin
+                  </Link>
+                )}
                 {isOwner && (
                   <Link to="/dashboard" className="hidden md:flex items-center gap-1.5 text-xs md:text-sm text-primary font-semibold hover:text-primary/80 transition-colors">
                     <Briefcase className="w-4 h-4" /> Pro
