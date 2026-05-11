@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Star, Briefcase, MessageSquare, FileText, Send, Sparkles } from 'lucide-react';
+import { ArrowLeft, Star, Briefcase, MessageSquare, FileText, Send, Sparkles, Crown, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -9,7 +9,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useAuth } from '@/contexts/AuthContext';
 import { useGarageOwnership, useGarageReviewsForOwner, useReviewResponses } from '@/hooks/useDashboard';
 import { useGarageQuoteRequests } from '@/hooks/useQuoteRequests';
-import { useGarages } from '@/hooks/useGarages';
+import { useGarages, type Garage } from '@/hooks/useGarages';
+import { useGarageSubscription, TIER_LABEL, TIER_PRICE, TIER_COLOR } from '@/hooks/useGarageTier';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { formatDistanceToNow } from 'date-fns';
@@ -98,7 +99,79 @@ const Dashboard = () => {
   );
 };
 
-function GarageDashboard({ ownershipId, garageId, garage }: { ownershipId: string; garageId: string; garage: any }) {
+function SubscriptionCard({ garage }: { garage: Garage }) {
+  const { data: sub } = useGarageSubscription(garage.id);
+  const [loadingPortal, setLoadingPortal] = useState(false);
+
+  const handleManage = async () => {
+    setLoadingPortal(true);
+    try {
+      const { data, error } = await supabase.functions.invoke('create-portal-session', {
+        body: { garage_id: garage.id, origin: window.location.origin },
+      });
+      if (error) throw error;
+      if (data?.url) window.location.href = data.url;
+    } catch (e) {
+      const msg = e instanceof Error ? e.message : String(e);
+      toast.error(msg);
+    } finally {
+      setLoadingPortal(false);
+    }
+  };
+
+  const tier = garage.tier;
+  const isPaid = tier !== 'free';
+  const isCanceling = sub?.cancel_at_period_end;
+
+  return (
+    <div className="surface-card p-4 space-y-3">
+      <div className="flex items-center justify-between gap-3 flex-wrap">
+        <div className="flex items-center gap-2">
+          {tier === 'premium' && <Crown className="w-4 h-4 text-amber-600" />}
+          {tier === 'pro' && <Sparkles className="w-4 h-4 text-primary" />}
+          <span className="text-xs font-semibold text-foreground">Abonnement</span>
+          <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${TIER_COLOR[tier]}`}>
+            {TIER_LABEL[tier]} · {TIER_PRICE[tier]}
+          </span>
+        </div>
+        {isCanceling && (
+          <span className="text-[10px] text-amber-600 font-medium">Annulation programmée</span>
+        )}
+      </div>
+      <div className="flex flex-wrap gap-2">
+        {!isPaid && (
+          <Link to="/pricing" className="flex-1">
+            <Button size="sm" className="w-full text-xs">
+              <Sparkles className="w-3.5 h-3.5" /> Débloquer Pro ou Premium
+            </Button>
+          </Link>
+        )}
+        {isPaid && (
+          <>
+            <Button
+              size="sm"
+              variant="outline"
+              className="flex-1 text-xs"
+              onClick={handleManage}
+              disabled={loadingPortal}
+            >
+              <ExternalLink className="w-3.5 h-3.5" /> {loadingPortal ? '...' : 'Gérer l'abonnement'}
+            </Button>
+            {tier === 'pro' && (
+              <Link to="/pricing" className="flex-1">
+                <Button size="sm" className="w-full text-xs">
+                  <Crown className="w-3.5 h-3.5" /> Passer en Premium
+                </Button>
+              </Link>
+            )}
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function GarageDashboard({ ownershipId, garageId, garage }: { ownershipId: string; garageId: string; garage: Garage }) {
   const { data: reviews = [], isLoading: loadingReviews } = useGarageReviewsForOwner(garageId);
   const reviewIds = reviews.map(r => r.id);
   const { data: responses = [] } = useReviewResponses(reviewIds);
@@ -136,6 +209,8 @@ function GarageDashboard({ ownershipId, garageId, garage }: { ownershipId: strin
           </div>
         </div>
       </div>
+
+      <SubscriptionCard garage={garage} />
 
       <Tabs defaultValue="reviews">
         <TabsList className="w-full grid grid-cols-2">
@@ -199,7 +274,7 @@ function GarageDashboard({ ownershipId, garageId, garage }: { ownershipId: strin
   );
 }
 
-function ReviewWithResponse({ review, response, ownershipId }: { review: any; response: any; ownershipId: string }) {
+function ReviewWithResponse({ review, response, ownershipId }: { review: { id: string; author_name: string; rating: number; text: string; created_at: string }; response: { text: string } | undefined; ownershipId: string }) {
   const [showReply, setShowReply] = useState(false);
   const [replyText, setReplyText] = useState('');
   const [sending, setSending] = useState(false);

@@ -17,6 +17,9 @@ import Vehicles from "./pages/Vehicles.tsx";
 import Dashboard from "./pages/Dashboard.tsx";
 import ClaimGarage from "./pages/ClaimGarage.tsx";
 import Pro from "./pages/Pro.tsx";
+import Pricing from "./pages/Pricing.tsx";
+import BillingSuccess from "./pages/BillingSuccess.tsx";
+import BillingCancel from "./pages/BillingCancel.tsx";
 import About from "./pages/About.tsx";
 import Terms from "./pages/legal/Terms.tsx";
 import Privacy from "./pages/legal/Privacy.tsx";
@@ -50,6 +53,9 @@ const App = () => (
                   <Route path="/dashboard" element={<Dashboard />} />
                   <Route path="/pro" element={<Pro />} />
                   <Route path="/pro/claim" element={<ClaimGarage />} />
+                  <Route path="/pricing" element={<Pricing />} />
+                  <Route path="/billing/success" element={<BillingSuccess />} />
+                  <Route path="/billing/cancel" element={<BillingCancel />} />
                   <Route path="/about" element={<About />} />
                   <Route path="/garage/:id" element={<GarageDetail />} />
                   <Route path="/legal/terms" element={<Terms />} />

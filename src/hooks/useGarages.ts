@@ -13,6 +13,39 @@ const ICON_MAP: Record<string, typeof ShieldCheck> = {
   Zap,
 };
 
+export type GarageTier = 'free' | 'pro' | 'premium';
+
+export interface TeamMember {
+  name: string;
+  role: string;
+  photo_url?: string;
+  bio?: string;
+}
+
+export interface Certification {
+  name: string;
+  icon?: string;
+  description?: string;
+}
+
+export interface FaqItem {
+  question: string;
+  answer: string;
+}
+
+export interface ServiceDetail {
+  name: string;
+  price_from?: number;
+  description?: string;
+}
+
+export interface PromoBanner {
+  text: string;
+  cta?: string;
+  cta_url?: string;
+  active_until?: string;
+}
+
 export interface Garage {
   id: string;
   slug: string;
@@ -38,11 +71,23 @@ export interface Garage {
   coords: { lat: number; lng: number };
   vehicleTypes: string[];
   serviceTypes: string[];
+  // Premium content (optionnel selon tier)
+  tier: GarageTier;
+  logoUrl: string | null;
+  coverImageUrl: string | null;
+  videoUrl: string | null;
+  longDescription: string | null;
+  team: TeamMember[];
+  certifications: Certification[];
+  faq: FaqItem[];
+  servicesDetail: ServiceDetail[];
+  promoBanner: PromoBanner | null;
 }
 
 function mapDbToGarage(db: DbGarage): Garage {
   const quality = db.quality_scores as { speed: number; cleanliness: number; transparency: number };
   const coords = db.coords as { lat: number; lng: number };
+  const ext = db as unknown as Record<string, unknown>;
   return {
     id: db.id,
     slug: db.slug,
@@ -66,8 +111,18 @@ function mapDbToGarage(db: DbGarage): Garage {
     images: (db.images as string[]) || [],
     hours: (db.hours as { day: string; open: string; close: string }[]) || [],
     coords,
-    vehicleTypes: ((db as any).vehicle_types as string[]) || ['voiture'],
-    serviceTypes: ((db as any).service_types as string[]) || ['entretien', 'reparation'],
+    vehicleTypes: (ext.vehicle_types as string[]) || ['voiture'],
+    serviceTypes: (ext.service_types as string[]) || ['entretien', 'reparation'],
+    tier: (ext.tier as GarageTier) || 'free',
+    logoUrl: (ext.logo_url as string | null) ?? null,
+    coverImageUrl: (ext.cover_image_url as string | null) ?? null,
+    videoUrl: (ext.video_url as string | null) ?? null,
+    longDescription: (ext.long_description as string | null) ?? null,
+    team: (ext.team as TeamMember[]) || [],
+    certifications: (ext.certifications as Certification[]) || [],
+    faq: (ext.faq as FaqItem[]) || [],
+    servicesDetail: (ext.services_detail as ServiceDetail[]) || [],
+    promoBanner: (ext.promo_banner as PromoBanner | null) ?? null,
   };
 }
 

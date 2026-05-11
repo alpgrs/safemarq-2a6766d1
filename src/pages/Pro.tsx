@@ -1,24 +1,25 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Sparkles, MessageSquare, FileText, BadgeCheck, BarChart3, ShieldCheck } from 'lucide-react';
+import { ArrowLeft, Sparkles, MessageSquare, FileText, BadgeCheck, BarChart3, ShieldCheck, Crown } from 'lucide-react';
 import Seo from '@/components/Seo';
 import Footer from '@/components/Footer';
 import BottomNav from '@/components/BottomNav';
 import { Button } from '@/components/ui/button';
 
 const FEATURES = [
-  { icon: BadgeCheck, title: 'Revendication gratuite', text: 'Validez votre fiche en quelques clics. Auto-approbation si votre email professionnel correspond au domaine du site.' },
-  { icon: MessageSquare, title: 'Répondez aux avis', text: 'Apportez du contexte, montrez votre professionnalisme et améliorez votre image publique.' },
-  { icon: FileText, title: 'Recevez des devis qualifiés', text: 'Les automobilistes vous contactent directement avec le détail de leur besoin, leur véhicule et leur plaque.' },
-  { icon: BarChart3, title: 'Tableau de bord pro', text: 'Suivez vos avis, gérez vos demandes par statut, mesurez votre performance.' },
-  { icon: ShieldCheck, title: 'Pas de classement payant', text: 'Aucune mise en avant cachée. Le score SAFEMARQ est le seul critère de visibilité.' },
+  { icon: BadgeCheck, title: 'Revendication gratuite', text: "Validez votre fiche en quelques clics. Auto-approbation si votre email pro correspond au domaine du site." },
+  { icon: MessageSquare, title: 'Répondez aux avis', text: "Apportez du contexte, montrez votre professionnalisme et améliorez votre image publique." },
+  { icon: FileText, title: 'Recevez des devis qualifiés', text: "Les automobilistes vous contactent avec le détail du besoin, du véhicule et de la plaque." },
+  { icon: BarChart3, title: 'Tableau de bord pro', text: "Suivez vos avis, gérez vos demandes par statut, mesurez votre performance." },
+  { icon: ShieldCheck, title: 'SafeScore objectif', text: "Le score est calculé uniquement à partir des notes et du volume d'avis. Aucun classement payant." },
+  { icon: Crown, title: 'Premium optionnel', text: "Logo, page de couverture, vidéo, équipe : débloqués via Pro ou Premium. Ne change pas votre visibilité dans le classement." },
 ];
 
 const Pro = () => (
   <div className="min-h-screen bg-background">
     <Seo
       title="Espace garagistes — Revendiquez votre fiche"
-      description="Garagistes : revendiquez gratuitement votre fiche SAFEMARQ, répondez aux avis et recevez des demandes de devis qualifiées."
+      description="Garagistes : revendiquez gratuitement votre fiche SAFEMARQ, répondez aux avis et débloquez des outils premium."
     />
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border">
       <div className="max-w-4xl mx-auto px-4 h-14 flex items-center gap-3">
@@ -42,14 +43,14 @@ const Pro = () => (
           Reprenez la main sur votre réputation.
         </h1>
         <p className="text-sm md:text-base text-muted-foreground max-w-2xl mx-auto">
-          SAFEMARQ aide les automobilistes à choisir un garage en confiance. En tant que professionnel, gérez vos avis et captez de nouveaux clients — gratuitement.
+          SAFEMARQ aide les automobilistes à choisir un garage en confiance. La revendication et le dashboard de base sont <strong>gratuits</strong>. Des outils premium optionnels (logo, vidéo, équipe) sont disponibles à 39€ ou 99€/mois — sans aucun impact sur le classement.
         </p>
         <div className="flex flex-wrap justify-center gap-2 pt-2">
           <Link to="/pro/claim">
             <Button size="lg">Revendiquer ma fiche</Button>
           </Link>
-          <Link to="/about">
-            <Button size="lg" variant="outline">Notre méthode</Button>
+          <Link to="/pricing">
+            <Button size="lg" variant="outline">Voir les tarifs Pro / Premium</Button>
           </Link>
         </div>
       </motion.section>
@@ -76,10 +77,11 @@ const Pro = () => (
         <h2 className="text-base font-bold text-foreground mb-3">Comment ça marche ?</h2>
         <ol className="space-y-3 text-sm text-foreground/80">
           {[
-            'Recherchez votre garage sur la plateforme.',
-            'Soumettez une demande de revendication avec votre email professionnel.',
-            'Validation automatique si l\'email correspond au domaine du site, ou validation manuelle sous 48h.',
-            'Accédez à votre dashboard pour répondre aux avis et gérer vos devis.',
+            "Recherchez votre garage sur la plateforme.",
+            "Soumettez une demande de revendication avec votre email professionnel.",
+            "Validation automatique si l'email correspond au domaine du site, ou validation manuelle sous 48h.",
+            "Accédez à votre dashboard pour répondre aux avis et gérer vos devis.",
+            "Optionnel : passez en Pro ou Premium pour personnaliser votre page.",
           ].map((step, i) => (
             <li key={i} className="flex gap-3">
               <span className="w-6 h-6 rounded-full bg-primary text-primary-foreground text-xs font-bold flex items-center justify-center shrink-0">
@@ -93,10 +95,15 @@ const Pro = () => (
 
       <section className="text-center surface-card p-6 bg-primary/5 border-primary/20">
         <h2 className="text-lg font-bold text-foreground mb-1">Prêt à commencer ?</h2>
-        <p className="text-xs text-muted-foreground mb-4">C'est 100% gratuit, sans engagement.</p>
-        <Link to="/pro/claim">
-          <Button size="lg">Revendiquer ma fiche</Button>
-        </Link>
+        <p className="text-xs text-muted-foreground mb-4">La revendication est 100% gratuite, sans engagement.</p>
+        <div className="flex flex-wrap justify-center gap-2">
+          <Link to="/pro/claim">
+            <Button size="lg">Revendiquer ma fiche</Button>
+          </Link>
+          <Link to="/pricing">
+            <Button size="lg" variant="outline">Voir Pro & Premium</Button>
+          </Link>
+        </div>
       </section>
     </main>
 
