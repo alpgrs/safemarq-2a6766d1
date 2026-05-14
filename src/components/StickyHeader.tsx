@@ -1,6 +1,6 @@
 import { Search, Home, Trophy, Bookmark, LogOut, User, Briefcase, Shield } from 'lucide-react';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { useGarageOwnership } from '@/hooks/useDashboard';
 import { useIsAdmin } from '@/hooks/useAdmin';
@@ -8,9 +8,9 @@ import ThemeToggle from '@/components/ThemeToggle';
 import Logo from '@/components/Logo';
 
 const navLinks = [
-  { id: 'home', label: 'Home', icon: Home },
-  { id: 'rankings', label: 'Top Rankings', icon: Trophy },
-  { id: 'garage', label: 'My Garage', icon: Bookmark },
+  { id: 'home', label: 'Accueil', icon: Home, to: '/' },
+  { id: 'pro', label: 'Pour les pros', icon: Briefcase, to: '/pro' },
+  { id: 'favorites', label: 'Favoris', icon: Bookmark, to: '/favorites' },
 ];
 
 interface StickyHeaderProps {
