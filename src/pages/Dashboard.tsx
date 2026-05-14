@@ -155,7 +155,7 @@ function SubscriptionCard({ garage }: { garage: Garage }) {
               onClick={handleManage}
               disabled={loadingPortal}
             >
-              <ExternalLink className="w-3.5 h-3.5" /> {loadingPortal ? '...' : 'Gérer l'abonnement'}
+              <ExternalLink className="w-3.5 h-3.5" /> {loadingPortal ? '...' : "Gérer l'abonnement"}
             </Button>
             {tier === 'pro' && (
               <Link to="/pricing" className="flex-1">
