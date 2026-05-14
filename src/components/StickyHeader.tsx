@@ -20,7 +20,7 @@ interface StickyHeaderProps {
 
 const StickyHeader = ({ searchQuery, onSearchChange }: StickyHeaderProps) => {
   const [localQuery, setLocalQuery] = useState('');
-  const [activeNav, setActiveNav] = useState('home');
+  const location = useLocation();
   const { user, signOut } = useAuth();
   const { data: ownerships = [] } = useGarageOwnership();
   const { data: isAdmin } = useIsAdmin();
