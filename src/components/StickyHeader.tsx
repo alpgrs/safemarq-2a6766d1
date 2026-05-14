@@ -190,6 +190,7 @@ const StickyHeader = ({ searchQuery, onSearchChange }: StickyHeaderProps) => {
               onClick={closeMenu}
             />
             <motion.div
+              ref={menuRef}
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
