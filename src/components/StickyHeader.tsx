@@ -122,6 +122,7 @@ const StickyHeader = ({ searchQuery, onSearchChange }: StickyHeaderProps) => {
             <ThemeToggle />
             {/* Burger — mobile only */}
             <button
+              ref={burgerRef}
               onClick={() => setMenuOpen((v) => !v)}
               className="md:hidden p-2 rounded-lg text-foreground hover:bg-secondary/60 transition-colors"
               aria-label={menuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
