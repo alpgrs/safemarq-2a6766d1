@@ -53,19 +53,20 @@ const StickyHeader = ({ searchQuery, onSearchChange }: StickyHeaderProps) => {
           <nav className="hidden md:flex items-center gap-1">
             {navLinks.map((link) => {
               const Icon = link.icon;
+              const isActive = location.pathname === link.to;
               return (
-                <button
+                <Link
                   key={link.id}
-                  onClick={() => setActiveNav(link.id)}
+                  to={link.to}
                   className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-150 ${
-                    activeNav === link.id
+                    isActive
                       ? 'bg-primary/10 text-primary'
                       : 'text-muted-foreground hover:text-foreground hover:bg-secondary/60'
                   }`}
                 >
                   <Icon className="w-4 h-4" />
                   {link.label}
-                </button>
+                </Link>
               );
             })}
           </nav>
