@@ -1,5 +1,5 @@
 import { Search, Home, Bookmark, LogOut, User, Briefcase, Shield, Menu, X } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '@/contexts/AuthContext';
@@ -31,16 +31,51 @@ const StickyHeader = ({ searchQuery, onSearchChange }: StickyHeaderProps) => {
   const query = searchQuery ?? localQuery;
   const setQuery = onSearchChange ?? setLocalQuery;
 
-  const closeMenu = () => setMenuOpen(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const burgerRef = useRef<HTMLButtonElement>(null);
+  const lastFocusedRef = useRef<HTMLElement | null>(null);
+
+  const closeMenu = useCallback(() => setMenuOpen(false), []);
 
   useEffect(() => {
     if (!menuOpen) return;
+
+    // Save last focused element and focus first item in menu
+    lastFocusedRef.current = document.activeElement as HTMLElement;
+    const focusable = menuRef.current?.querySelectorAll<HTMLElement>(
+      'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+    );
+    focusable?.[0]?.focus();
+
     const handleKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') closeMenu();
+      if (e.key === 'Escape') {
+        closeMenu();
+        return;
+      }
+      if (e.key !== 'Tab' || !menuRef.current) return;
+
+      const nodes = menuRef.current.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      );
+      if (nodes.length === 0) return;
+      const first = nodes[0];
+      const last = nodes[nodes.length - 1];
+
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
     };
+
     window.addEventListener('keydown', handleKey);
-    return () => window.removeEventListener('keydown', handleKey);
-  }, [menuOpen]);
+    return () => {
+      window.removeEventListener('keydown', handleKey);
+      lastFocusedRef.current?.focus();
+    };
+  }, [menuOpen, closeMenu]);
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border">
@@ -87,6 +122,7 @@ const StickyHeader = ({ searchQuery, onSearchChange }: StickyHeaderProps) => {
             <ThemeToggle />
             {/* Burger — mobile only */}
             <button
+              ref={burgerRef}
               onClick={() => setMenuOpen((v) => !v)}
               className="md:hidden p-2 rounded-lg text-foreground hover:bg-secondary/60 transition-colors"
               aria-label={menuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
@@ -154,6 +190,7 @@ const StickyHeader = ({ searchQuery, onSearchChange }: StickyHeaderProps) => {
               onClick={closeMenu}
             />
             <motion.div
+              ref={menuRef}
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
