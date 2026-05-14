@@ -1,6 +1,6 @@
 import { Search, Home, Trophy, Bookmark, LogOut, User, Briefcase, Shield } from 'lucide-react';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { useGarageOwnership } from '@/hooks/useDashboard';
 import { useIsAdmin } from '@/hooks/useAdmin';
@@ -8,9 +8,9 @@ import ThemeToggle from '@/components/ThemeToggle';
 import Logo from '@/components/Logo';
 
 const navLinks = [
-  { id: 'home', label: 'Home', icon: Home },
-  { id: 'rankings', label: 'Top Rankings', icon: Trophy },
-  { id: 'garage', label: 'My Garage', icon: Bookmark },
+  { id: 'home', label: 'Accueil', icon: Home, to: '/' },
+  { id: 'pro', label: 'Pour les pros', icon: Briefcase, to: '/pro' },
+  { id: 'favorites', label: 'Favoris', icon: Bookmark, to: '/favorites' },
 ];
 
 interface StickyHeaderProps {
@@ -20,7 +20,7 @@ interface StickyHeaderProps {
 
 const StickyHeader = ({ searchQuery, onSearchChange }: StickyHeaderProps) => {
   const [localQuery, setLocalQuery] = useState('');
-  const [activeNav, setActiveNav] = useState('home');
+  const location = useLocation();
   const { user, signOut } = useAuth();
   const { data: ownerships = [] } = useGarageOwnership();
   const { data: isAdmin } = useIsAdmin();
@@ -53,19 +53,20 @@ const StickyHeader = ({ searchQuery, onSearchChange }: StickyHeaderProps) => {
           <nav className="hidden md:flex items-center gap-1">
             {navLinks.map((link) => {
               const Icon = link.icon;
+              const isActive = location.pathname === link.to;
               return (
-                <button
+                <Link
                   key={link.id}
-                  onClick={() => setActiveNav(link.id)}
+                  to={link.to}
                   className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-150 ${
-                    activeNav === link.id
+                    isActive
                       ? 'bg-primary/10 text-primary'
                       : 'text-muted-foreground hover:text-foreground hover:bg-secondary/60'
                   }`}
                 >
                   <Icon className="w-4 h-4" />
                   {link.label}
-                </button>
+                </Link>
               );
             })}
           </nav>
