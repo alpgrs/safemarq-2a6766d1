@@ -33,6 +33,15 @@ const StickyHeader = ({ searchQuery, onSearchChange }: StickyHeaderProps) => {
 
   const closeMenu = () => setMenuOpen(false);
 
+  useEffect(() => {
+    if (!menuOpen) return;
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') closeMenu();
+    };
+    window.addEventListener('keydown', handleKey);
+    return () => window.removeEventListener('keydown', handleKey);
+  }, [menuOpen]);
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border">
       <div className="max-w-6xl mx-auto px-4 md:px-6">
