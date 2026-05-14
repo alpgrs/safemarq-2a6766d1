@@ -31,16 +31,51 @@ const StickyHeader = ({ searchQuery, onSearchChange }: StickyHeaderProps) => {
   const query = searchQuery ?? localQuery;
   const setQuery = onSearchChange ?? setLocalQuery;
 
-  const closeMenu = () => setMenuOpen(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const burgerRef = useRef<HTMLButtonElement>(null);
+  const lastFocusedRef = useRef<HTMLElement | null>(null);
+
+  const closeMenu = useCallback(() => setMenuOpen(false), []);
 
   useEffect(() => {
     if (!menuOpen) return;
+
+    // Save last focused element and focus first item in menu
+    lastFocusedRef.current = document.activeElement as HTMLElement;
+    const focusable = menuRef.current?.querySelectorAll<HTMLElement>(
+      'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+    );
+    focusable?.[0]?.focus();
+
     const handleKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') closeMenu();
+      if (e.key === 'Escape') {
+        closeMenu();
+        return;
+      }
+      if (e.key !== 'Tab' || !menuRef.current) return;
+
+      const nodes = menuRef.current.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      );
+      if (nodes.length === 0) return;
+      const first = nodes[0];
+      const last = nodes[nodes.length - 1];
+
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
     };
+
     window.addEventListener('keydown', handleKey);
-    return () => window.removeEventListener('keydown', handleKey);
-  }, [menuOpen]);
+    return () => {
+      window.removeEventListener('keydown', handleKey);
+      lastFocusedRef.current?.focus();
+    };
+  }, [menuOpen, closeMenu]);
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border">
